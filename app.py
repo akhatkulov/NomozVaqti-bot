@@ -9,8 +9,9 @@ admin_id = 6778990003824873
 def home(message):
     text = message.text
     chat_id = message.chat.id 
+    add_user(chat_id)
     if text == "/start":
-        add_user(chat_id)
+
         bot.send_message(chat_id=chat_id,text="<b>Assalomu alaykum o'zingizga kerakli bo'lgan bo'limni tanlang </b>",parse_mode="HTML",reply_markup=home_key())
 
 
@@ -19,7 +20,7 @@ def home(message):
             bot.send_message(chat_id=chat_id,text="Manzilingizni sozlash. U uchun /set_location deb yozing")
         else:
             bot.send_message(chat_id=chat_id,text=f"{pray_time(get_location())}")
-    if text == "/set_loaction":
+    if text == "/set_location":
         bot.send_message(chat_id=chat_id,text="Manzilingizni tanlang",reply_markup=location_keys())
     if text == "📖Qo'llanma":
         bot.send_message(chat_id=chat_id,text="sss")
