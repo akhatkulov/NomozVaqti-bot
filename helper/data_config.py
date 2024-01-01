@@ -4,24 +4,36 @@ import telebot
 db = sqlite3.connect('data/database.db')
 cursor = db.cursor()
 
-bot = telebot.TeleBot("token")
+bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
 
 
-db.execute('CREATE TABLE IF NOT EXISTS gr(CID INT UNIQUE)')
-db.execute('CREATE TABLE IF NOT EXISTS users(CID INT UNIQUE)')
+db.execute('''CREATE TABLE IF NOT EXISTS gr(
+    CID INT UNIQUE NOT NULL)''')
+db.execute('''CREATE TABLE IF NOT EXISTS users(
+    CID INT UNIQUE,
+    MANZIL TEXT DEFAULT "home")''')
 
 def add_user(cid):
     try:
-        db.execute("""INSERT INTO users(CID)
-            VALUES(?)""",(cid))
+        db.execute(f"INSERT INTO users(CID) VALUES(?)",(cid))
     except:
         pass
+    db.commit()
+def add_location(cid,manzil):
+    db.execute(f"UPDATE users SET manzil=? WHERE cid=?",(str(manzil),int(cid)))
+    print("--{}--")
+    db.commit()
+def get_location(cid):
+    x = db.execute(f"SELECT * FROM users WHERE cid=?",(cid))
+    return x.fetchone()[1]
+    print("++++")
 def add_gr(cid):
     try:
         db.execute("""INSERT INTO gr(CID)
             VALUES(?)""",(cid))
     except:
         pass
+    db.commit()
 
 def ads_send_users(message):
     try:
@@ -100,4 +112,3 @@ def for_send_group(message):
                 print(e)
         bot.send_message(admin_id, "✅ Xabar hamma guruhlarga yuborildi!")
 
-        
