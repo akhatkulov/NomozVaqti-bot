@@ -22,4 +22,20 @@ def home(message):
     
     if text == "/admin" and chat_id == admin_id:
         bot.send_message(chat_id=admin_id,text='tanlang',reply_markup=admin_keys)
-    if text == ""
+    if text == "Stat":
+        bot.send_message(chat_id=admin_id,text=f"Statistika: {get_stat()}")
+    
+    if message.text == "Send User" and message.chat.id == admin_id:
+        adver = bot.send_message(chat_id=admin_id,text="Send User | <b>✍️ Xabar matnini kiritng !</b>")
+        bot.register_next_step_handler(adver, ads_send_user)
+    if message.text == "Send Group" and message.chat.id == admin_id:
+        adver = bot.send_message(chat_id=admin_id,text="Send User | <b>✍️ Xabar matnini kiritng !</b>")
+        bot.register_next_step_handler(adver, ads_send_group)
+
+    
+    if message.text == "Forward User" and message.chat.id == admin_id:
+        adver = bot.send_message(chat_id=admin_id,text="user |<b>✍️ Xabar matnini kiritng !</b>")
+        bot.register_next_step_handler(adver, for_send_user)
+    if message.text == "Forward Group" and message.chat.id == admin_id:
+        adver = bot.send_message(chat_id=admin_id,text="Group |<b>✍️ Xabar matnini kiritng !</b>")
+        bot.register_next_step_handler(adver, for_send_group)
