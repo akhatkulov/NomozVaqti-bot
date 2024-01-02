@@ -9,9 +9,9 @@ admin_id = 6778990003824873
 def home(message):
     text = message.text
     chat_id = message.chat.id 
-    add_user(chat_id)
-    if text == "/start":
 
+    if text == "/start":
+        add_user(message.chat.id)
         bot.send_message(chat_id=chat_id,text="<b>Assalomu alaykum o'zingizga kerakli bo'lgan bo'limni tanlang </b>",parse_mode="HTML",reply_markup=home_key())
 
 
