@@ -17,9 +17,12 @@ except:
 
 @bot.message_handler(chat_types=['group'])
 def reg_gr(message):
-    chat_id = message.chat.id 
-    db_gr.add_user(chat_id)
-    print("ro'yxatga olindi --[gruppa]-- !!!")
+    if message.text == "/start@prayingtime_bot":
+
+        chat_id = message.chat.id 
+        db_gr.add_user(chat_id)
+        bot.send_message(chat_id=chat_id,text="Ushbu bot sizni Nomoz vaqlaridan xabardor qiladi. Bot guruhda imkoniyatlari cheklangan. Botdan keng foydalanmoqchi bo'lsangiz botga kirib foydalanishingiz mumkin!")
+        print("ro'yxatga olindi --[gruppa]-- !!!")
 
 @bot.message_handler(chat_types=['private'])
 def home(message):
