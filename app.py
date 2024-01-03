@@ -3,7 +3,15 @@ from helper import *
 from parts import *
 
 bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
-admin_id = 6778990003824873
+admin_id = 789945598
+db = Database(path_to_db="data/main.db")
+print(db.get_location(789945598))
+try:
+    db.create_table_users()
+except:
+    print("--{xato sql create}--")
+
+
 
 @bot.message_handler(chat_types=['private'])
 def home(message):
@@ -11,15 +19,16 @@ def home(message):
     chat_id = message.chat.id 
 
     if text == "/start":
-        add_user(message.chat.id)
-        bot.send_message(chat_id=chat_id,text="<b>Assalomu alaykum o'zingizga kerakli bo'lgan bo'limni tanlang </b>",parse_mode="HTML",reply_markup=home_key())
+        
+        db.add_user(int(message.chat.id))
+        bot.send_message(chat_id=chat_id,text=f"{db.get_location(chat_id)}<b>Assalomu alaykum o'zingizga kerakli bo'lgan bo'limni tanlang </b>",parse_mode="HTML",reply_markup=home_key())
 
 
     if text == "⏰Nomoz vaqti":
-        if get_location(chat_id) == "home":
+        if db.get_location(int(chat_id)) == "home":
             bot.send_message(chat_id=chat_id,text="Manzilingizni sozlash. U uchun /set_location deb yozing")
         else:
-            bot.send_message(chat_id=chat_id,text=f"{pray_time(get_location())}")
+            bot.send_message(chat_id=chat_id,text=f"{pray_time(db.get_location(int(message.chat.id)))}")
     if text == "/set_location":
         bot.send_message(chat_id=chat_id,text="Manzilingizni tanlang",reply_markup=location_keys())
     if text == "📖Qo'llanma":
@@ -52,7 +61,158 @@ def locations(callback):
     chat_id = callback.message.chat.id
     data = callback.data
     if data == "andijon":
-        add_location(int(chat_id),"andijon")
+        db.add_location(int(chat_id),"andijon")
         bot.send_message(chat_id=chat_id,text="Manzilingiz Andijon sifatida sozlandi✅")
+    if data == "angren":
+        db.add_location(int(chat_id),"angren")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Angren sifatida sozlandi✅")
+    if data == "bekobod":
+        db.add_location(int(chat_id),"bekobod")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Bekobod sifatida sozlandi✅")
+    if data == "boysun":
+        db.add_location(int(chat_id),"boysun")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Boysun sifatida sozlandi✅")
+    if data == "buxoro":
+        db.add_location(int(chat_id),"buxoro")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Buxoro sifatida sozlandi✅")
+    if data == "gazli":
+        db.add_location(int(chat_id),"gazli")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Gazli sifatida sozlandi✅")
+    if data == "guliston":
+        db.add_location(int(chat_id),"guliston")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Guliston sifatida sozlandi✅")
+    if data == "denov":
+        db.add_location(int(chat_id),"denov")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Denov sifatida sozlandi✅")
+    if data == "dehqonobod":
+        db.add_location(int(chat_id),"dehqonobod")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Dehqonobod sifatida sozlandi✅")
+    if data == "dostlik":
+        db.add_location(int(chat_id),"dostlik")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Do'stlik sifatida sozlandi✅")
+    if data == "jizzax":
+        db.add_location(int(chat_id),"jizzax")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Jizzax sifatida sozlandi✅")
+    if data == "zarafshon":
+        db.add_location(int(chat_id),"zarafshon")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Zarafshon sifatida sozlandi✅")
+    if data == "zomin":
+        db.add_location(int(chat_id),"zomin")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Zomin sifatida sozlandi✅")
+    if data == "kattaqurgon":
+        db.add_location(int(chat_id),"kattaqurgon")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Katta Qo'rg'on sifatida sozlandi✅")
+    if data == "konimex":
+        db.add_location(int(chat_id),"konimex")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Konimex sifatida sozlandi✅")
+    if data == "margilon":
+        db.add_location(int(chat_id),"margilon")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Marg'ilon sifatida sozlandi✅")
+    if data == "mingbuloq":
+        db.add_location(int(chat_id),"mingbuloq")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Mingbuloq sifatida sozlandi✅")
+    if data == "muborak":
+        db.add_location(int(chat_id),"muborak")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Muborak sifatida sozlandi✅")
+    if data == "moynoq":
+        db.add_location(int(chat_id),"moynoq")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Mo'ynoq sifatida sozlandi✅")
+    if data == "navoiy":
+        db.add_location(int(chat_id),"navoiy")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Navoiy sifatida sozlandi✅")
+    if data == "namangan":
+        db.add_location(int(chat_id),"namangan")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Namangan sifatida sozlandi✅")
+    if data == "nukus":
+        db.add_location(int(chat_id),"nukus")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Nukus sifatida sozlandi✅")
+    if data == "nurota":
+        db.add_location(int(chat_id),"nurota")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Nur Ota sifatida sozlandi✅")
+    if data == "oltiariq":
+        db.add_location(int(chat_id),"oltiariq")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Olti Ariq sifatida sozlandi✅")
+    if data == "paxtaobod":
+        db.add_location(int(chat_id),"paxtaobod")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Paxta Obod sifatida sozlandi✅")
+    if data == "rishton":
+        db.add_location(int(chat_id),"rishton")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Rishton sifatida sozlandi✅")
+    if data == "samarqand":
+        db.add_location(int(chat_id),"samarqand")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Samarqand sifatida sozlandi✅")
+    if data == "termiz":
+        db.add_location(int(chat_id),"termiz")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Termiz sifatida sozlandi✅")
+    if data == "toshkent":
+        db.add_location(int(chat_id),"toshkent")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Toshkent sifatida sozlandi✅")
+    if data == "tortkol":
+        db.add_location(int(chat_id),"tortkol")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz To'rt Ko'l sifatida sozlandi✅")
+    if data == "urganch":
+        db.add_location(int(chat_id),"urganch")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Urganch sifatida sozlandi✅")
+    if data == "urgut":
+        db.add_location(int(chat_id),"urgut")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Urgut sifatida sozlandi✅")
+    if data == "uchquduq":
+        db.add_location(int(chat_id),"uchquduq")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Uchquduq sifatida sozlandi✅")
+    if data == "uchqorgon":
+        db.add_location(int(chat_id),"uchqorgon")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Uch Qo'rg'on sifatida sozlandi✅")
+    if data == "fargona":
+        db.add_location(int(chat_id),"fargona")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Farg'ona sifatida sozlandi✅")
+    if data == "xiva":
+        db.add_location(int(chat_id),"xiva")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Xiva sifatida sozlandi✅")
+    if data == "xonobod":
+        db.add_location(int(chat_id),"xonobod")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Xonobod sifatida sozlandi✅")
+    if data == "xonqa":
+        db.add_location(int(chat_id),"xonqa")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Xonqa sifatida sozlandi✅")
+    if data == "xojaobod":
+        db.add_location(int(chat_id),"xojaobod")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Xo'ja Obod sifatida sozlandi✅")
+    if data == "chortoq":
+        db.add_location(int(chat_id),"chortoq")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Chortoq sifatida sozlandi✅")
+    if data == "chust":
+        db.add_location(int(chat_id),"chust")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Chust sifatida sozlandi✅")
+    if data == "shahrixon":
+        db.add_location(int(chat_id),"shahrixon")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Shaxrihon sifatida sozlandi✅")
+    if data == "sherobod":
+        db.add_location(int(chat_id),"sherobod")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Sherobod sifatida sozlandi✅")
+    if data == "shovat":
+        db.add_location(int(chat_id),"shovat")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Shovat sifatida sozlandi✅")
+    if data == "yangibozor":
+        db.add_location(int(chat_id),"yangibozor")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Yangi Bozor sifatida sozlandi✅")
+    if data == "gallaorol":
+        db.add_location(int(chat_id),"gallaorol")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz G'alla Orol sifatida sozlandi✅")
+    if data == "qarshi":
+        db.add_location(int(chat_id),"qarshi")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz qarshi sifatida sozlandi✅")
+    if data == "qorakol":
+        db.add_location(int(chat_id),"qorakol")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Qorakol sifatida sozlandi✅")
+    if data == "quva":
+        db.add_location(int(chat_id),"quva")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Quva sifatida sozlandi✅")
+    if data == "qongirot":
+        db.add_location(int(chat_id),"qongirot")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Qo'ngirot sifatida sozlandi✅")
+    if data == "qoqon":
+        db.add_location(int(chat_id),"qoqon")
+        bot.send_message(chat_id=chat_id,text="Manzilingiz Qo'qon sifatida sozlandi✅")
+
 print(bot.get_me())
 bot.polling()
