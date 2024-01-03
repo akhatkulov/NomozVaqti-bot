@@ -16,7 +16,7 @@ def pray_time(city):
     message = f"🕌{city} namoz vaqtlari\n🌙Bomdod: {bomdod}\n🌝Quyosh: {quyosh}\n🌇Peshin: {peshin}\n🌅Asr: {asr}\n🌄Shom: {shom}\n🌘Xufton: {xufton}"
     return message
 def get_time():
-    url = f"https://namozvaqti.uz/shahar/andijon"
+    url = f"https://namozvaqti.uz/shahar/toshkent"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     bomdod = soup.find("p", {"id": "bomdod"}).text.strip()
@@ -27,5 +27,7 @@ def get_time():
     xufton = soup.find("p", {"id": "hufton"}).text.strip()
     l = [bomdod,peshin,asr,shom,xufton]
     return list(l)
+
+print(get_time()[0])
 
 

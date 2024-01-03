@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
 admin_id = 789945598
 db = Database(path_to_db="data/main.db")
+db_gr = Database_gr(path_to_db="data/group.db")
 x = db.get_location(789945598)
 print(pray_time(x[0]))
 try:
@@ -14,7 +15,11 @@ try:
 except:
     print("--{xato sql create}--")
 
-
+@bot.message_handler(chat_types=['group'])
+def reg_gr(message):
+    chat_id = message.chat.id 
+    db_gr.add_user(chat_id)
+    print("ro'yxatga olindi --[gruppa]-- !!!")
 
 @bot.message_handler(chat_types=['private'])
 def home(message):
