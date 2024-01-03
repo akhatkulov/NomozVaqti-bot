@@ -1,11 +1,14 @@
 import telebot
 from helper import *
 from parts import *
+import requests
+from bs4 import BeautifulSoup
 
 bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
 admin_id = 789945598
 db = Database(path_to_db="data/main.db")
-print(db.get_location(789945598))
+x = db.get_location(789945598)
+print(pray_time(x[0]))
 try:
     db.create_table_users()
 except:
@@ -28,7 +31,7 @@ def home(message):
         if db.get_location(int(chat_id)) == "home":
             bot.send_message(chat_id=chat_id,text="Manzilingizni sozlash. U uchun /set_location deb yozing")
         else:
-            bot.send_message(chat_id=chat_id,text=f"{pray_time(db.get_location(int(message.chat.id)))}")
+            bot.send_message(chat_id=chat_id,text=f"{pray_time(db.get_location(int(message.chat.id)))}",parse_mode="HTML")
     if text == "/set_location":
         bot.send_message(chat_id=chat_id,text="Manzilingizni tanlang",reply_markup=location_keys())
     if text == "📖Qo'llanma":

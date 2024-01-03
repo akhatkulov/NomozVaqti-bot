@@ -7,15 +7,7 @@ def home_key():
     btn3 = types.KeyboardButton(text="💬Bog'lanish")
     key.add(btn1,btn2,btn3)
     return key
-"""
-echo "# NomozVaqi-bot" >> README.md
-                                          git init
-                                          git add README.md
-                                          git commit -m "first commit"
-                                          git branch -M main
-                                          git remote add origin https://github.com/akhatkulov/NomozVaqti-bot.git
-                                          git push -u origin main
- """
+
 
 def location_keys():
     key = types.InlineKeyboardMarkup(row_width=3)

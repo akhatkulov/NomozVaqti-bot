@@ -54,7 +54,7 @@ class Database:
     
     def get_location(self,cid):
         x = self.execute(f"SELECT * FROM users WHERE cid={cid}",fetchone=True)
-        return x
+        return x[1]
 
 
     def add_location(self, cid: int, manzil: str):
