@@ -66,7 +66,15 @@ def home(message):
     if message.text == "Forward Group" and message.chat.id == admin_id:
         adver = bot.send_message(chat_id=admin_id,text="Group |<b>✍️ Xabar matnini kiritng !</b>")
         bot.register_next_step_handler(adver, for_send_group)
-
+    if message.text == "/set_kanal_1" and message.chat.id == admin_id:
+        x = bot.send_message(chat_id=admin_id,text="Kanal linkini yuboring")
+        bot.register_next_step_handler(x,change_kanal_1)
+    if message.text == "/set_kanal_2" and message.chat.id == admin_id:
+        x = bot.send_message(chat_id=admin_id,text="Kanali linkini yuboring")
+        bot.register_next_step_handler(x,change_kanal_2)
+    if message.text == "/set_main" and message.chat.id == admin_id:
+        x = bot.send_message(chat_id=admin_id,text="Kanal kalit kiriting")
+        bot.register_next_step_handler(x,change_main) 
 @bot.callback_query_handler(func= lambda callback : callback.data)
 def locations(callback):
     chat_id = callback.message.chat.id
