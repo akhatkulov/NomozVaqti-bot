@@ -15,7 +15,7 @@ try:
 except:
     print("--{xato sql create}--")
 try:
-    db.create_table_users()
+    db_gr.create_table_users()
 except:
     print("--xato gruppa--")
 
@@ -29,13 +29,6 @@ def join_key():
   return keyboard
 
 
-@bot.message_handler(chat_types=['group'])
-def reg_gr(message):
-    print(17)
-    if message.text == "/start@PrayingTime_bot":
-        db_gr.add_user(chat_id)
-        bot.send_message(chat_id=message.chat.id,text="Ushbu bot sizni Nomoz vaqlaridan xabardor qiladi. Bot guruhda imkoniyatlari cheklangan. Botdan keng foydalanmoqchi bo'lsangiz botga kirib foydalanishingiz mumkin!")
-	
 @bot.message_handler(chat_types=['private'])
 def home(message):
     text = message.text
@@ -120,6 +113,13 @@ def join(user_id):
 
 
 
+@bot.message_handler()
+def reg_gr(message):
+    if "-100" in str(message.chat.id):
+        db_gr.add_user(message.chat.id)
+    if message.text == "/start@PrayingTime_bot":
+        bot.send_message(chat_id=message.chat.id,text="Ushbu bot sizni Nomoz vaqlaridan xabardor qiladi. Bot guruhda imkoniyatlari cheklangan. Botdan keng foydalanmoqchi bo'lsangiz botga kirib foydalanishingiz mumkin!")
+	
 
 @bot.callback_query_handler(func= lambda callback : callback.data)
 def locations(callback):
