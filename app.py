@@ -14,6 +14,10 @@ try:
     db.create_table_users()
 except:
     print("--{xato sql create}--")
+try:
+    db.create_table_users()
+except:
+    print("--xato gruppa--")
 
 def join_key():
   keyboard = types.InlineKeyboardMarkup(row_width=1)
@@ -24,21 +28,20 @@ def join_key():
   )
   return keyboard
 
+
 @bot.message_handler(chat_types=['group'])
 def reg_gr(message):
-    if message.text == "/start@prayingtime_bot":
-
-        chat_id = message.chat.id 
+    print(17)
+    if message.text == "/start@PrayingTime_bot":
         db_gr.add_user(chat_id)
-        bot.send_message(chat_id=chat_id,text="Ushbu bot sizni Nomoz vaqlaridan xabardor qiladi. Bot guruhda imkoniyatlari cheklangan. Botdan keng foydalanmoqchi bo'lsangiz botga kirib foydalanishingiz mumkin!")
-        print("ro'yxatga olindi --[gruppa]-- !!!")
-
+        bot.send_message(chat_id=message.chat.id,text="Ushbu bot sizni Nomoz vaqlaridan xabardor qiladi. Bot guruhda imkoniyatlari cheklangan. Botdan keng foydalanmoqchi bo'lsangiz botga kirib foydalanishingiz mumkin!")
+	
 @bot.message_handler(chat_types=['private'])
 def home(message):
     text = message.text
     chat_id = message.chat.id 
 
-    if text == "/start":
+    if text == "/start" and join(chat_id):
         
         db.add_user(int(message.chat.id))
         bot.send_message(chat_id=chat_id,text=f"<b>Assalomu alaykum o'zingizga kerakli bo'lgan bo'limni tanlang </b>",parse_mode="HTML",reply_markup=home_key())
@@ -100,8 +103,8 @@ def change_main(msg):
     set_main(msg.text)
     bot.send_message(chat_id=msg.chat.id,text="Sozlandi")
 
-def join(message):
-    user_id = message.chat.id
+
+def join(user_id):
     x = get_main()
     member = bot.get_chat_member(x, user_id)
     member1 = bot.get_chat_member(x, user_id)
