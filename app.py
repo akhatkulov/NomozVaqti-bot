@@ -8,8 +8,7 @@ bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
 admin_id = 789945598
 db = Database(path_to_db="data/main.db")
 db_gr = Database_gr(path_to_db="data/group.db")
-x = db.get_location(789945598)
-print(pray_time(x[0]))
+
 try:
     db.create_table_users()
 except:
@@ -32,7 +31,7 @@ def home(message):
     if text == "/start":
         
         db.add_user(int(message.chat.id))
-        bot.send_message(chat_id=chat_id,text=f"{db.get_location(chat_id)}<b>Assalomu alaykum o'zingizga kerakli bo'lgan bo'limni tanlang </b>",parse_mode="HTML",reply_markup=home_key())
+        bot.send_message(chat_id=chat_id,text=f"<b>Assalomu alaykum o'zingizga kerakli bo'lgan bo'limni tanlang </b>",parse_mode="HTML",reply_markup=home_key())
 
 
     if text == "⏰Nomoz vaqti":
@@ -75,10 +74,14 @@ def home(message):
     if message.text == "/set_main" and message.chat.id == admin_id:
         x = bot.send_message(chat_id=admin_id,text="Kanal kalit kiriting")
         bot.register_next_step_handler(x,change_main) 
+
+
 @bot.callback_query_handler(func= lambda callback : callback.data)
 def locations(callback):
     chat_id = callback.message.chat.id
     data = callback.data
+    if data == "member":
+        bot.send_message(chat_id=chat_id,text=f"<b>Assalomu alaykum o'zingizga kerakli bo'lgan bo'limni tanlang </b>",parse_mode="HTML",reply_markup=home_key())
     if data == "andijon":
         db.add_location(int(chat_id),"andijon")
         bot.send_message(chat_id=chat_id,text="Manzilingiz Andijon sifatida sozlandi✅")
@@ -233,5 +236,19 @@ def locations(callback):
         db.add_location(int(chat_id),"qoqon")
         bot.send_message(chat_id=chat_id,text="Manzilingiz Qo'qon sifatida sozlandi✅")
 
+def join(message):
+  user_id = message.chat.id
+  try:
+    member = bot.get_chat_member(get_main(), user_id)
+    member1 = bot.get_chat_member(get_main(), user_id)
+  except:
+    bot.send_message(user_id,"<b>👋 Assalomu alaykum Botni ishga tushurish uchun kanallarga a'zo bo'ling va a'zolikni tekshirish buyrug'ini bosing.</b>",parse_mode='html',reply_markup=join_key())
+
+  x = ['member', 'creator', 'administrator']
+  if member.status not in x or member1.status not in x:
+    bot.send_message(user_id,"<b>👋 Assalomu alaykum Botni ishga tushurish uchun kanallarga a'zo bo'ling va a'zolikni tekshirish buyrug'ini bosing.</b>",parse_mode='html',reply_markup=join_key())
+    return False
+  else:
+      return True
 print(bot.get_me())
 bot.polling()

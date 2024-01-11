@@ -1,5 +1,13 @@
 from telebot import types
-
+from parts import *
+def join_key():
+  keyboard = InlineKeyboardMarkup(row_width=1)
+  keyboard.add(
+      InlineKeyboardButton('1️⃣ - kanal', url=get_kanal_1()),
+      InlineKeyboardButton('2️⃣ - kanal', url=get_kanal_2()),
+      InlineKeyboardButton('✅ Tasdiqlash', callback_data="member")
+  )
+  return keyboard
 def home_key():
     key = types.ReplyKeyboardMarkup(resize_keyboard=True,row_width=2)
     btn1 = types.KeyboardButton(text="⏰Nomoz vaqti")
