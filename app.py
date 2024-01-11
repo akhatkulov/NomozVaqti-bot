@@ -3,6 +3,7 @@ from helper import *
 from parts import *
 import requests
 from bs4 import BeautifulSoup
+from mailer import *
 
 bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
 admin_id = 789945598
@@ -13,6 +14,15 @@ try:
     db.create_table_users()
 except:
     print("--{xato sql create}--")
+
+def join_key():
+  keyboard = types.InlineKeyboardMarkup(row_width=1)
+  keyboard.add(
+      types.InlineKeyboardButton('1️⃣ - kanal', url=str(get_kanal_1())),
+      types.InlineKeyboardButton('2️⃣ - kanal', url=str(get_kanal_2())),
+      types.InlineKeyboardButton('✅ Tasdiqlash', callback_data="member")
+  )
+  return keyboard
 
 @bot.message_handler(chat_types=['group'])
 def reg_gr(message):
@@ -46,34 +56,66 @@ def home(message):
     if text == "💬Bog'lanish":
         bot.send_message(chat_id=chat_id,text="<b>Admin: @ADmin </b> \n<b>Dasturchi: @Akhatkulov </b>",parse_mode="HTML")
     
+
+    if text=="Stat" or  text == "/stat" and chat_id == admin_id:
+        try:
+            bot.send_message(chat_id=admin_id,text=f"Guruhlar:  {db_gr.gr_info()} Odamlar: {db.member_info()}")
+        except:
+            bot.send_message(chat_id=admin_id,text="Malumotlar yetarli emas")
     if text == "/admin" and chat_id == admin_id:
-        bot.send_message(chat_id=admin_id,text='tanlang',reply_markup=admin_keys)
-    if text == "Stat":
-        bot.send_message(chat_id=admin_id,text=f"Statistika: {get_stat()}")
+        bot.send_message(chat_id=admin_id,text='tanlang',reply_markup=admin_keys())
+
     
     if message.text == "Send User" and message.chat.id == admin_id:
-        adver = bot.send_message(chat_id=admin_id,text="Send User | <b>✍️ Xabar matnini kiritng !</b>")
+        adver = bot.send_message(chat_id=admin_id,text="Send User | <b>✍️ Xabar matnini kiritng !</b>",reply_markup=abort_button(),parse_mode="HTML")
         bot.register_next_step_handler(adver, ads_send_user)
     if message.text == "Send Group" and message.chat.id == admin_id:
-        adver = bot.send_message(chat_id=admin_id,text="Send User | <b>✍️ Xabar matnini kiritng !</b>")
+        adver = bot.send_message(chat_id=admin_id,text="Send User | <b>✍️ Xabar matnini kiritng !</b>",reply_markup=abort_button(),parse_mode="HTML")
         bot.register_next_step_handler(adver, ads_send_group)
 
     
     if message.text == "Forward User" and message.chat.id == admin_id:
-        adver = bot.send_message(chat_id=admin_id,text="user |<b>✍️ Xabar matnini kiritng !</b>")
+        adver = bot.send_message(chat_id=admin_id,text="user |<b>✍️ Xabar matnini kiritng !</b>",reply_markup=abort_button(),parse_mode="HTML")
         bot.register_next_step_handler(adver, for_send_user)
     if message.text == "Forward Group" and message.chat.id == admin_id:
-        adver = bot.send_message(chat_id=admin_id,text="Group |<b>✍️ Xabar matnini kiritng !</b>")
+        adver = bot.send_message(chat_id=admin_id,text="Group |<b>✍️ Xabar matnini kiritng !</b>",reply_markup=abort_button(),parse_mode="HTML")
         bot.register_next_step_handler(adver, for_send_group)
     if message.text == "/set_kanal_1" and message.chat.id == admin_id:
-        x = bot.send_message(chat_id=admin_id,text="Kanal linkini yuboring")
+        x = bot.send_message(chat_id=admin_id,text="Kanal linkini yuboring",parse_mode="HTML")
         bot.register_next_step_handler(x,change_kanal_1)
     if message.text == "/set_kanal_2" and message.chat.id == admin_id:
-        x = bot.send_message(chat_id=admin_id,text="Kanali linkini yuboring")
+        x = bot.send_message(chat_id=admin_id,text="Kanali linkini yuboring",parse_mode="HTML")
         bot.register_next_step_handler(x,change_kanal_2)
     if message.text == "/set_main" and message.chat.id == admin_id:
-        x = bot.send_message(chat_id=admin_id,text="Kanal kalit kiriting")
+        x = bot.send_message(chat_id=admin_id,text="Kanal kalit kiriting",parse_mode='HTML')
         bot.register_next_step_handler(x,change_main) 
+def change_kanal_1(msg):
+    set_kanal_1(msg.text)
+    bot.send_message(chat_id=msg.chat.id,text="Sozlandi")
+def change_kanal_2(msg):
+    set_kanal_2(msg.text)
+    bot.send_message(chat_id=msg.chat.id,text="Sozlandi")
+
+def change_main(msg):
+    set_main(msg.text)
+    bot.send_message(chat_id=msg.chat.id,text="Sozlandi")
+
+def join(message):
+    user_id = message.chat.id
+    x = get_main()
+    member = bot.get_chat_member(x, user_id)
+    member1 = bot.get_chat_member(x, user_id)
+    # except:
+    #     bot.send_message(chat_id=user_id,text="<b>👋 Assalomu alaykum Botni ishga tushurish uchun kanallarga a'zo bo'ling va a'zolikni tekshirish buyrug'ini bosing.</b>",parse_mode='html',reply_markup=join_key())
+
+    x = ['member', 'creator', 'administrator']
+    if member.status not in x or member1.status not in x:
+        bot.send_message(chat_id=user_id,text="<b>👋 Assalomu alaykum Botni ishga tushurish uchun kanallarga a'zo bo'ling va a'zolikni tekshirish buyrug'ini bosing.</b>",parse_mode='html',reply_markup=join_key())
+        return False
+    else:
+        return True
+
+
 
 
 @bot.callback_query_handler(func= lambda callback : callback.data)
@@ -236,19 +278,6 @@ def locations(callback):
         db.add_location(int(chat_id),"qoqon")
         bot.send_message(chat_id=chat_id,text="Manzilingiz Qo'qon sifatida sozlandi✅")
 
-def join(message):
-  user_id = message.chat.id
-  try:
-    member = bot.get_chat_member(get_main(), user_id)
-    member1 = bot.get_chat_member(get_main(), user_id)
-  except:
-    bot.send_message(user_id,"<b>👋 Assalomu alaykum Botni ishga tushurish uchun kanallarga a'zo bo'ling va a'zolikni tekshirish buyrug'ini bosing.</b>",parse_mode='html',reply_markup=join_key())
 
-  x = ['member', 'creator', 'administrator']
-  if member.status not in x or member1.status not in x:
-    bot.send_message(user_id,"<b>👋 Assalomu alaykum Botni ishga tushurish uchun kanallarga a'zo bo'ling va a'zolikni tekshirish buyrug'ini bosing.</b>",parse_mode='html',reply_markup=join_key())
-    return False
-  else:
-      return True
 print(bot.get_me())
 bot.polling()

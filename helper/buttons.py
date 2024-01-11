@@ -1,13 +1,6 @@
 from telebot import types
 from parts import *
-def join_key():
-  keyboard = InlineKeyboardMarkup(row_width=1)
-  keyboard.add(
-      InlineKeyboardButton('1️⃣ - kanal', url=get_kanal_1()),
-      InlineKeyboardButton('2️⃣ - kanal', url=get_kanal_2()),
-      InlineKeyboardButton('✅ Tasdiqlash', callback_data="member")
-  )
-  return keyboard
+
 def home_key():
     key = types.ReplyKeyboardMarkup(resize_keyboard=True,row_width=2)
     btn1 = types.KeyboardButton(text="⏰Nomoz vaqti")
@@ -81,4 +74,10 @@ def admin_keys():
     btn4 = types.KeyboardButton(text="Forward Group")
     btn5 = types.KeyboardButton(text="Stat")
     key.add(btn1,btn2,btn3,btn4,btn5)
+    return key
+
+def abort_button():
+    key = types.ReplyKeyboardMarkup(resize_keyboard=True,row_width=1)
+    btn1 = types.KeyboardButton(text="🚫 Bekor qilish")
+    key.add(btn1)
     return key

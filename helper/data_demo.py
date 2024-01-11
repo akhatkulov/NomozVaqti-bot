@@ -55,6 +55,9 @@ class Database:
     def get_location(self,cid):
         x = self.execute(f"SELECT * FROM users WHERE cid={cid}",fetchone=True)
         return x[1]
+    def member_info(self):
+        x = self.execute("SELECT COUNT(CID) FROM Users",fetchall=True)
+        return x[0][0]
 
 
     def add_location(self, cid: int, manzil: str):
@@ -152,6 +155,9 @@ class Database_gr:
     def get_location(self,cid):
         x = self.execute(f"SELECT * FROM users WHERE cid={cid}",fetchone=True)
         return x[1]
+    def gr_info(self):
+        x = self.execute("SELECT COUNT(CID) FROM Users",fetchall=True)
+        return x[0][0]
 
 
     def add_location(self, cid: int, manzil: str):
@@ -188,3 +194,5 @@ Executing:
 {statement}
 _____________________________________________________
 """)
+
+

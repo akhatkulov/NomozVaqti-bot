@@ -1,14 +1,8 @@
-def change_kanal_1(msg):
-    pass 
-def change_kanal_2(msg):
-    pass 
 
-def change_main(msg):
-    pass 
 
 def set_kanal_1(x):
     with open("data/kanal1.txt",'w+') as f:
-        f.wrire(x)
+        f.write(x)
 def get_kanal_1():
     with open("data/kanal1.txt",'r+') as f:
         x = f.read()
@@ -22,7 +16,7 @@ def get_main():
         return x
 def set_kanal_1(x):
     with open("data/kanal2.txt",'w+') as f:
-        f.wrire(x)
+        f.write(x)
 def get_kanal_2():
     with open("data/kanal2.txt",'r+') as f:
         x = f.read()
