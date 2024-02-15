@@ -2,7 +2,7 @@ import schedule
 import time
 import telebot 
 from parts import *
-bot = telebot.TeleBot("6709370621:AAH8ErEPkh9dzu7V9m4kuL7thNeHdjYeUxs")
+bot = telebot.TeleBot("token") #bot token
 from helper import *
 
 db_gr = Database_gr(path_to_db="data/group.db")
