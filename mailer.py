@@ -1,7 +1,7 @@
 from helper import *
 import telebot 
 
-bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
+bot = telebot.TeleBot("6709370621:AAH8ErEPkh9dzu7V9m4kuL7thNeHdjYeUxs")
 
 db_gr = Database_gr(path_to_db="data/group.db")
 db = Database(path_to_db="data/main.db")
@@ -12,19 +12,20 @@ def ads_send_group():
         user_id = user[0]
 
 def ads_send_group(message):
-    try:
-        text = message.text
-        if text=="🚫 Bekor qilish":
-            bot.send_message(message.chat.id,"🚫 Xabar yuborish bekor qilindi !",reply_markup=admin_keys())
-        else:
+
+    text = message.text
+    if text=="🚫 Bekor qilish":
+        bot.send_message(message.chat.id,"🚫 Xabar yuborish bekor qilindi !",reply_markup=admin_keys())
+    else:
+        try:
             users = db_gr.select_all_users()
             for user in users:
                 chat_id = user[0]
                 print(chat_id)
                 bot.send_message(chat_id,message.text)
             bot.send_message(admin_id,text="<b>✅ Xabar hamma foydalanuvchiga yuborildi!</b>")
-    except:
-        pass
+        except:
+            pass
 
 def ads_send_user(message):
     try:
@@ -42,6 +43,7 @@ def ads_send_user(message):
         pass
 
 def for_send_user(message):
+    
     text = message.text
     if text == "🚫 Bekor qilish":
         bot.send_photo(message.chat.id,photo="https://t.me/the_solodest/178",caption="🚫 Xabar yuborish bekor qilindi!")

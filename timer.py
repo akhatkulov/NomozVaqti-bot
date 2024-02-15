@@ -1,8 +1,8 @@
 import schedule
 import time
 import telebot 
-from api import *
-bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
+from parts import *
+bot = telebot.TeleBot("6709370621:AAH8ErEPkh9dzu7V9m4kuL7thNeHdjYeUxs")
 from helper import *
 
 db_gr = Database_gr(path_to_db="data/group.db")
@@ -21,12 +21,11 @@ def time_calc(timer):
 	    return str(int(b[0])-1).zfill(2)+":"+str(str(60-abs(b[1])).zfill(2))
 
 def bomdod():
-    users = db_gr.select_all_users()
-    for user in users:
-        user_id = user[0]
-
-
-        bot.send_message(chat_id=user_id,text=f"""
+    try:
+        users = db_gr.select_all_users()
+        for user in users:
+            user_id = user[0]
+            bot.send_message(chat_id=user_id,text=f"""
 Бомдод вақтига оз қолди.
 Бомдод вақти: {get_time()[0]} (Тошкент вақти)
 
@@ -66,11 +65,14 @@ def bomdod():
 
 Батафсил маълумот олиш учун: @PrayingTime_bot
 """)
+    except:
+        pass
 
 def peshin():
     users = db_gr.select_all_users()
-    for user in users:
-        user_id = user[0]
+    try:
+        for user in users:
+            user_id = user[0]
 
 
         bot.send_message(chat_id=user_id,text=f"""
@@ -113,14 +115,17 @@ def peshin():
 
 Батафсил маълумот олиш учун: @PrayingTime_bot
 """)
+    except:
+        pass
 
 def asr():
     users = db_gr.select_all_users()
-    for user in users:
-        user_id = user[0]
+    try:
+        for user in users:
+            user_id = user[0]
 
 
-        bot.send_message(chat_id=user_id,text=f"""
+            bot.send_message(chat_id=user_id,text=f"""
 Aср вақтида оз қолди.
 Aср вақти: {get_time()[2]} (Тошкент вақти)
 
@@ -160,12 +165,15 @@ Aср вақти: {get_time()[2]} (Тошкент вақти)
 
 Батафсил маълумот олиш учун: @PrayingTime_bot
 """)
-
+    except:
+        pass
 
 def shom():
     users = db_gr.select_all_users()
-    for user in users:
-        user_id = user[0]
+    try:
+        
+        for user in users:
+            user_id = user[0]
 
 
         bot.send_message(chat_id=user_id,text=f"""
@@ -208,14 +216,16 @@ def shom():
 
 Батафсил маълумот олиш учун: @PrayingTime_bot
 """)
-
+    except:
+        pass
 def xufton():
     users = db_gr.select_all_users()
-    for user in users:
-        user_id = user[0]
+    try:
+        for user in users:
+            user_id = user[0]
 
 
-        bot.send_message(chat_id=user_id,text=f"""
+            bot.send_message(chat_id=user_id,text=f"""
 Хуфтон вақтида оз қолди.
 Хуфтон вақти: {get_time()[4]} (Тошкент вақти)
 
@@ -255,8 +265,14 @@ def xufton():
 
 Батафсил маълумот олиш учун: @PrayingTime_bot
 """)
-
-
+    except:
+        pass
+print("---[]---")
+print(time_calc(get_time()[0]))
+print(time_calc(get_time()[1]))
+print(time_calc(get_time()[2]))
+print(time_calc(get_time()[3]))
+print(time_calc(get_time()[4]))
 
 schedule.every().day.at(time_calc(get_time()[0])).do(bomdod)
 schedule.every().day.at(time_calc(get_time()[1])).do(peshin)

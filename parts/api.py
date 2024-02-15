@@ -29,5 +29,9 @@ def get_time():
     return list(l)
 
 print(get_time()[0])
+print(get_time()[1])
+print(get_time()[2])
+print(get_time()[3])
+print(get_time()[4])
 
 

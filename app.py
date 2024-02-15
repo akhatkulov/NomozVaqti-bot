@@ -5,8 +5,8 @@ import requests
 from bs4 import BeautifulSoup
 from mailer import *
 
-bot = telebot.TeleBot("6709370621:AAGs70M4tdROjUD6o3PbSbA54rg_u8O3YVU")
-admin_id = 789945598
+bot = telebot.TeleBot("6709370621:AAH8ErEPkh9dzu7V9m4kuL7thNeHdjYeUxs")
+admin_id = 1528556671
 db = Database(path_to_db="data/main.db")
 db_gr = Database_gr(path_to_db="data/group.db")
 
@@ -50,7 +50,7 @@ def home(message):
     if text == "📖Qo'llanma":
         bot.send_message(chat_id=chat_id,text="sss")
     if text == "💬Bog'lanish":
-        bot.send_message(chat_id=chat_id,text="<b>Admin: @ADmin </b> \n<b>Dasturchi: @Akhatkulov </b>",parse_mode="HTML")
+        bot.send_message(chat_id=chat_id,text="<b>Admin: @AbuYunus1988 </b> \n<b>Dasturchi: @Akhatkulov </b>",parse_mode="HTML")
     
 
     if text=="Stat" or  text == "/stat" and chat_id == admin_id:
