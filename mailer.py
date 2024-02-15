@@ -1,11 +1,11 @@
 from helper import *
 import telebot 
 
-bot = telebot.TeleBot("6709370621:AAH8ErEPkh9dzu7V9m4kuL7thNeHdjYeUxs")
+bot = telebot.TeleBot("token") #Bot_token
 
 db_gr = Database_gr(path_to_db="data/group.db")
 db = Database(path_to_db="data/main.db")
-admin_id = 789945598
+admin_id = 789945598 #admin_id
 def ads_send_group():
     users = db_gr.select_all_users()
     for user in users:
