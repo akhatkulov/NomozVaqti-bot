@@ -5,8 +5,8 @@ import requests
 from bs4 import BeautifulSoup
 from mailer import *
 
-bot = telebot.TeleBot("6709370621:AAH8ErEPkh9dzu7V9m4kuL7thNeHdjYeUxs")
-admin_id = 1528556671
+bot = telebot.TeleBot("token") #bot token
+admin_id = 1528556671 #admin_id
 db = Database(path_to_db="data/main.db")
 db_gr = Database_gr(path_to_db="data/group.db")
 
