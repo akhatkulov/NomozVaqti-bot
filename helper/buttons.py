@@ -1,6 +1,6 @@
 from telebot import types
 from parts import *
-
+from . import get_channel
 def home_key():
     key = types.ReplyKeyboardMarkup(resize_keyboard=True,row_width=2)
     btn1 = types.KeyboardButton(text="⏰Nomoz vaqti")
@@ -27,7 +27,7 @@ def location_keys():
     btn13 = types.InlineKeyboardButton(text="🌆Zomin",callback_data="zomin")
     btn14 = types.InlineKeyboardButton(text="🌆Katta Qo'rg'on",callback_data="kattaqurgon")
     btn15 = types.InlineKeyboardButton(text="🌆Konimex",callback_data="konimex")
-    btn16 = types.InlineKeyboardButton(text="🌆Marg'ilon",callback_data="margilon")
+    btn16 = types.InlineKeyboardButton(text="🌆Marg'ilon",callback_data="marg'ilon")
     btn17 = types.InlineKeyboardButton(text="🌆Mingbuloq",callback_data="mingbuloq")
     btn18 = types.InlineKeyboardButton(text="🌆Muborak",callback_data="muborak")
     btn19 = types.InlineKeyboardButton(text="🌆Mo'ynoq",callback_data="moynoq")
@@ -41,43 +41,54 @@ def location_keys():
     btn27 = types.InlineKeyboardButton(text="🌆Samarqand",callback_data="samarqand")
     btn28 = types.InlineKeyboardButton(text="🌆Termiz",callback_data="termiz")
     btn29 = types.InlineKeyboardButton(text="🌆Toshkent",callback_data="toshkent")
-    btn30 = types.InlineKeyboardButton(text="🌆To'rt Ko'l",callback_data="tortkol")
+    btn30 = types.InlineKeyboardButton(text="🌆To'rt Ko'l",callback_data="to'rtkol")
     btn31 = types.InlineKeyboardButton(text="🌆Urganch",callback_data="urganch")
     btn32 = types.InlineKeyboardButton(text="🌆Urgut",callback_data="urgut")
     btn33 = types.InlineKeyboardButton(text="🌆Uchquduq",callback_data="uchquduq")
-    btn34 = types.InlineKeyboardButton(text="🌆Uchqo'rg'on",callback_data="uchqorgon")
-    btn35 = types.InlineKeyboardButton(text="🌆Farg'ona",callback_data="fargona")
+    btn34 = types.InlineKeyboardButton(text="🌆Uchqo'rg'on",callback_data="uchqo'rg'on")
+    btn35 = types.InlineKeyboardButton(text="🌆Farg'ona",callback_data="farg'ona")
     btn36 = types.InlineKeyboardButton(text="🌆Xiva",callback_data="xiva")
     btn37 = types.InlineKeyboardButton(text="🌆Xonobod",callback_data="xonobod")
     btn38 = types.InlineKeyboardButton(text="🌆Xonqa",callback_data="xonqa")
-    btn39 = types.InlineKeyboardButton(text="🌆Xo'ja Obod",callback_data="xojaobod")
+    btn39 = types.InlineKeyboardButton(text="🌆Xo'ja Obod",callback_data="xo'jaobod")
     btn40 = types.InlineKeyboardButton(text="🌆Chortoq",callback_data="chortoq")
     btn41 = types.InlineKeyboardButton(text="🌆Chust",callback_data="chust")
     btn42 = types.InlineKeyboardButton(text="🌆Shahrixon",callback_data="shahrixon")
     btn43 = types.InlineKeyboardButton(text="🌆Sherobod",callback_data="sherobod")
     btn44 = types.InlineKeyboardButton(text="🌆Shovat",callback_data="shovat")
     btn45 = types.InlineKeyboardButton(text="🌆Yangi bozor",callback_data="yangibozor")
-    btn46 = types.InlineKeyboardButton(text="🌆G'allaorol",callback_data="gallaorol")
+    btn46 = types.InlineKeyboardButton(text="🌆G'allaorol",callback_data="g'alla orol")
     btn47 = types.InlineKeyboardButton(text="🌆Qarshi",callback_data="qarshi")
-    btn48 = types.InlineKeyboardButton(text="🌆Qorako'l",callback_data="qorakol")
+    btn48 = types.InlineKeyboardButton(text="🌆Qorako'l",callback_data="qorako'l")
     btn49 = types.InlineKeyboardButton(text="🌆Quva",callback_data="quva")
-    btn50 = types.InlineKeyboardButton(text="🌆Qo'ng'irot",callback_data="qongirot")
-    btn51 = types.InlineKeyboardButton(text="🌆Qo'qon",callback_data="qoqon")
+    btn50 = types.InlineKeyboardButton(text="🌆Qo'ng'irot",callback_data="qo'ng'irot")
+    btn51 = types.InlineKeyboardButton(text="🌆Qo'qon",callback_data="qo'qon")
 
     key.add(btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12,btn13,btn14,btn15,btn16,btn17,btn18,btn19,btn20,btn21,btn22,btn23,btn24,btn25,btn26,btn27,btn28,btn29,btn30,btn31,btn32,btn33,btn34,btn35,btn36,btn37,btn38,btn39,btn40,btn41,btn42,btn43,btn44,btn45,btn46,btn47,btn48,btn49,btn50,btn51)
     return key 
-def admin_keys():
-    key = types.ReplyKeyboardMarkup(resize_keyboard=True,row_width=2)
-    btn1 = types.KeyboardButton(text="Send User")
-    btn2 = types.KeyboardButton(text="Send Group")
-    btn3 = types.KeyboardButton(text="Forward User")
-    btn4 = types.KeyboardButton(text="Forward Group")
-    btn5 = types.KeyboardButton(text="Stat")
-    key.add(btn1,btn2,btn3,btn4,btn5)
-    return key
 
 def abort_button():
     key = types.ReplyKeyboardMarkup(resize_keyboard=True,row_width=1)
     btn1 = types.KeyboardButton(text="🚫 Bekor qilish")
     key.add(btn1)
     return key
+
+def admin_buttons():
+    x = types.InlineKeyboardMarkup(row_width=1)
+    btn1 = types.InlineKeyboardButton(text="Statistika", callback_data="stat")
+    btn2 = types.InlineKeyboardButton(text="Xabar yuborish", callback_data="send")
+    btn3 = types.InlineKeyboardButton(text="Kanallarni sozlash", callback_data="channels")
+    x.add(btn1, btn2, btn3)
+    return x
+
+def join_key():
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    x = get_channel()
+    r = 1
+    for i in x:
+        keyboard.add(
+            types.InlineKeyboardButton(f"〽️ {r}-kanal", url=f"https://t.me/{i}")
+        )
+        r += 1
+    keyboard.add(types.InlineKeyboardButton('✅ Tasdiqlash', callback_data='/start'))
+    return keyboard
