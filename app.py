@@ -40,6 +40,8 @@ def home(message):
 
 
     if text == "⏰Nomoz vaqti":
+        print(get_location(int(chat_id)))
+        print(get_location(int(chat_id))== "0")
         if get_location(int(chat_id)) == "0":
             bot.send_message(chat_id=chat_id,text="Manzilingizni tanlang",reply_markup=location_keys())
         else:
