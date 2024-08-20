@@ -34,10 +34,10 @@ def get_time():
     return l
 
 print("Bomdod: ",get_time()['bomdod'])
-print("Peshin: ",get_time()['Peshin'])
-print("Shom: ",get_time()['Shom'])
-print("Xufton: ",get_time()['Xufton'])
-print("Quyosh: ",get_time()['Quyosh'])
+print("Peshin: ",get_time()['peshin'])
+print("Shom: ",get_time()['shom'])
+print("Xufton: ",get_time()['xufton'])
+print("Quyosh: ",get_time()['quyosh'])
 
 
 print(pray_time("samarqand"))
