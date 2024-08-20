@@ -20,18 +20,24 @@ def get_time():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     bomdod = soup.find("p", {"id": "bomdod"}).text.strip()
-#    quyosh = soup.find("p", {"id": "quyosh"}).text.strip()
+    quyosh = soup.find("p", {"id": "quyosh"}).text.strip()
     peshin = soup.find("p", {"id": "peshin"}).text.strip()
     asr = soup.find("p", {"id": "asr"}).text.strip()
     shom = soup.find("p", {"id": "shom"}).text.strip()
     xufton = soup.find("p", {"id": "hufton"}).text.strip()
-    l = [bomdod,peshin,asr,shom,xufton]
-    return list(l)
+    l = {"bomdod":bomdod,
+    "peshin":peshin,
+    "asr":asr,
+    "shom":shom,
+    "xufton":xufton,
+    "quyosh":quyosh}
+    return l
 
-print(get_time()[0])
-print(get_time()[1])
-print(get_time()[2])
-print(get_time()[3])
-print(get_time()[4])
+print("Bomdod: ",get_time()['bomdod'])
+print("Peshin: ",get_time()['Peshin'])
+print("Shom: ",get_time()['Shom'])
+print("Xufton: ",get_time()['Xufton'])
+print("Quyosh: ",get_time()['Quyosh'])
 
 
+print(pray_time("samarqand"))
