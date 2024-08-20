@@ -1,8 +1,9 @@
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, BigInteger, func,VARCHAR
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.exc import SQLAlchemyError
+import conf
 
-engine = create_engine("postgresql://postgres:1945@localhost/postgres")
+engine = create_engine(conf.DB_URI)
 Base = declarative_base()
 
 

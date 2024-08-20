@@ -1,9 +1,9 @@
 import telebot
 from helper import *
 from parts import *
-
-bot = telebot.TeleBot("7059689609:AAEsegMf79BvadYNnnEmv0aoHpZrAPQMa3I") #bot token
-admin_id = 6521895096 #admin_id
+import conf
+bot = telebot.TeleBot(conf.BOT_TOKEN) #bot token
+admin_id = conf.ADMIN_ID #admin_id
 
 
 def join(user_id):
@@ -28,16 +28,6 @@ def join(user_id):
     
 
 
-def join_key():
-  keyboard = types.InlineKeyboardMarkup(row_width=1)
-  keyboard.add(
-      types.InlineKeyboardButton('1️⃣ - kanal', url=str(get_kanal_1())),
-      types.InlineKeyboardButton('2️⃣ - kanal', url=str(get_kanal_2())),
-      types.InlineKeyboardButton('✅ Tasdiqlash', callback_data="member")
-  )
-  return keyboard
-
-
 @bot.message_handler(chat_types=['private'])
 def home(message):
     text = message.text
@@ -51,13 +41,16 @@ def home(message):
 
     if text == "⏰Nomoz vaqti":
         if get_location(int(chat_id)) == "0":
-            bot.send_message(chat_id=chat_id,text="Manzilingizni sozlash. U uchun /set_location deb yozing")
+            bot.send_message(chat_id=chat_id,text="Manzilingizni tanlang",reply_markup=location_keys())
         else:
-            bot.send_message(chat_id=chat_id,text=f"{pray_time(db.get_location(int(message.chat.id)))}",parse_mode="HTML")
-    if text == "/set_location":
+            bot.send_message(chat_id=chat_id,text=f"{pray_time(get_location(int(message.chat.id)))}",parse_mode="HTML")
+    
+    if text == "✨Ramazon bo'limi":
+        bot.send_message(chat_id=chat_id,text="Kerakli menyuni tanlang",reply_markup=menu_ramadan())
+    if text == "⚙️Sozlamalar":
         bot.send_message(chat_id=chat_id,text="Manzilingizni tanlang",reply_markup=location_keys())
     if text == "📖Qo'llanma":
-        bot.send_message(chat_id=chat_id,text="sss")
+        bot.send_message(chat_id=chat_id,text="Ushbu bot orqali osongina ibodat vaqtlaridan xabardor bo'lasiz!")
     if text == "💬Bog'lanish":
         bot.send_message(chat_id=chat_id,text="<b>Admin: @AbuYunus1988 </b> \n<b>Dasturchi: @Akhatkulov </b>",parse_mode="HTML")
     
@@ -85,6 +78,29 @@ def locations(callback):
     if data in all_locations:
         put_location(cid=chat_id,x_location=data)
         bot.send_message()
+    if data == "duolar":
+        bot.send_message(chat_id=chat_id,text="""<b>✨Ro‘za tutish (saharlik, og‘iz yopish) duosi</b>
 
+نَوَيْتُ أَنْ أَصُومَ صَوْمَ شَهْرَ رَمَضَانَ مِنَ الْفَجْرِ إِلَى الْمَغْرِبِ، خَالِصًا لِلهِ تَعَالَى أَللهُ أَكْبَرُ
+
+Navaytu an asuvma sovma shahri ramazona minal fajri ilal mag‘ribi, xolisan lillahi ta’aalaa Allohu akbar.
+
+Ma’nosi: Ramazon oyining ro‘zasini subhdan to kun botguncha tutmoqni niyat qildim. Xolis Alloh uchun Alloh buyukdir. 
+
+<b>✨Iftorlik (og‘iz ochish) duosi </b>
+
+اَللَّهُمَّ لَكَ صُمْتُ وَ بِكَ آمَنْتُ وَ عَلَيْكَ تَوَكَّلْتُ وَ عَلَى رِزْقِكَ أَفْتَرْتُ، فَغْفِرْلِى مَا قَدَّمْتُ وَ مَا أَخَّرْتُ بِرَحْمَتِكَ يَا أَرْحَمَ الرَّاحِمِينَ
+
+Allohumma laka sumtu va bika aamantu va a’layka tavakkaltu va a’laa rizqika aftartu, fag‘firliy ma qoddamtu va maa axxortu birohmatika yaa arhamar roohimiyn.
+
+Ma’nosi: Ey Alloh, ushbu Ro‘zamni Sen uchun tutdim va Senga iymon keltirdim va Senga tavakkal qildim va bergan rizqing bilan iftor qildim. Ey mehribonlarning eng mehriboni, mening avvalgi va keyingi gunohlarimni mag‘firat qilgil.""",parse_mode="html")
+    if data == "vaqtlar":
+        bot.send_photo(chat_id=chat_id,photo=conf.TIME_PHOTO_URL,caption="""<b>✨Ushbu vaqt Toshkent vaqtida ko'rsatilgan.</b>
+
+Toshkentdan boshqa shaharlardagi vaqtlar farqi (minut)
+
+Avval: Chimkent (1), Konibodom (5), Qo‘qon (7), Jambul (7), Namangan (10), Farg‘ona (10), Marg‘ilon (10), Andijon (12), O‘sh (14), Jalolobod (15), Bishkek (21), Olma - ota (21)
+
+Keyin: Bekobod (4), Turkiston (4), Jizzax (6), Guliston (7). Denov (7), Jonboy (7), Samarqand (9), Shahrisabz (10), Kattaqo‘rg‘on (12), Qarshi (9), Nurota (14), Navoiy (19), Buxoro (21), Xiva (35)""",parse_mode="html")
 print(bot.get_me())
 bot.polling()

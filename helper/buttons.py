@@ -6,9 +6,11 @@ def home_key():
     btn1 = types.KeyboardButton(text="⏰Nomoz vaqti")
     btn2 = types.KeyboardButton(text="📖Qo'llanma")
     btn3 = types.KeyboardButton(text="💬Bog'lanish")
+    btn4 = types.KeyboardButton(text="⚙️Sozlamalar")
+    btn5 = types.KeyboardButton(text="✨Ramazon bo'limi")
     key.add(btn1,btn2,btn3)
+    key.add(btn4,btn5)
     return key
-
 
 def location_keys():
     key = types.InlineKeyboardMarkup(row_width=3)
@@ -92,3 +94,10 @@ def join_key():
         r += 1
     keyboard.add(types.InlineKeyboardButton('✅ Tasdiqlash', callback_data='/start'))
     return keyboard
+
+def menu_ramadan():
+    x = types.InlineKeyboardMarkup(row_width=2)
+    btn1 = types.InlineKeyboardButton(text="🤲Duolar",callback_data="duolar")
+    btn2 = types.InlineKeyboardButton(text="🕔Vaqtlar",callback_data="vaqtlar")
+    x.add(btn1,btn2)
+    return x
