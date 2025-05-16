@@ -1,4 +1,4 @@
-DB_URI = "sqlite:///data/database.sql"
-BOT_TOKEN = "7059689609:AAEv2uf2uwd9CLLUg7Dsd2GobHwaSIlrZwE"
+DB_URI = "postgresql+sycopg2://username:password@localhost/u2s_bots" 
+BOT_TOKEN = "bot_token"
 ADMIN_ID = 6521895096
-TIME_PHOTO_URL = "https://t.me/the_solodest/179"
+TIME_PHOTO_URL = "https://t.me/the_solodest/202"
